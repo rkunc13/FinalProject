@@ -5,40 +5,31 @@ import java.util.Arrays;
 
 public class MultipleChoice extends Question {
 
-	private static final long serialVersionUID = 1L;
-	private String choices;
 
-	public MultipleChoice(int quizID, int authorID, String prompt,
-			String choices, String answer) {
-		this.quizID = quizID;
-		this.authorID = authorID;
-		this.question = prompt;
-		this.choices = choices;
-		this.answer = answer;
+	public MultipleChoice(int quizID, int authorID, String prompt,String choices, String answer) {
 	}
 
 	public int getQuizID() {
-		return quizID;
+		return 1;
 	}
 
 	public int getNumChoices() {
-		return choices.split(",").length;
+		return 1;
 	}
 
 	public String getQuestionText() {
-		return question;
+		return "res";
 	}
 
 	public String getChoicesAsText() {
-		return choices;
+		return "choice";
 	}
 
 	public ArrayList<String> getChoicesAsList() {
-		return new ArrayList<String>(Arrays.asList(choices.trim().toLowerCase()
-				.split("\\s*,\\s*")));
+		return Null;
 	}
 
 	public String getAnswerText() {
-		return answer.toLowerCase();
+		return "resp"
 	}
 }
