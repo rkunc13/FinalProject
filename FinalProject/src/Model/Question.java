@@ -10,10 +10,5 @@ public abstract class Question implements java.io.Serializable {
 	protected int authorID;
 	protected String question;
 	protected String answer;
-	
-	abstract long getSerialVersionUID();
-	abstract int getAuthorID();
-	abstract String getQuestion();
-	abstract String setAnswer();
-	
+		
 }
