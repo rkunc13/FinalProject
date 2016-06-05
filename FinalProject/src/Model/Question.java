@@ -1,5 +1,5 @@
 package Model;
 
-public class Question {
-
+public abstract class Question implements java.io.Serializable {
+	
 }
