@@ -1,10 +1,16 @@
 package Model;
 
-public class PictureResponse extends Question {
+public class PictureResponse {
 
-	private static final long serialVersionUID = 1L;
+	public PictureResponse(int quizID, int authorID, String url, String answer) {
+	}
 
-	public PictureResponse(int quizID, int authorID, String answer) {
-		
+	public int getQuizID() {
+	}
+
+	public String getQuestionText() {
+	}
+
+	public String getAnswerText() {
 	}
 }
