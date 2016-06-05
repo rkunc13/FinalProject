@@ -1,34 +1,44 @@
 package Model;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 
 public class MultipleChoice extends Question {
 
+	private static final long serialVersionUID = 1L;
+	private String choices;
 
-	public MultipleChoice(int quizID, int authorID, String prompt,String choices, String answer) {
+	public MultipleChoice(int quizID, int authorID, String prompt,
+			String choices, String answer) {
+		this.quizID = quizID;
+		this.authorID = authorID;
+		this.question = prompt;
+		this.choices = choices;
+		this.answer = answer;
 	}
 
 	public int getQuizID() {
-		return 1;
+		return quizID;
 	}
 
 	public int getNumChoices() {
-		return 1;
+		return choices.split(",").length;
 	}
 
 	public String getQuestionText() {
-		return "res";
+		return question;
 	}
 
 	public String getChoicesAsText() {
-		return "choice";
+		return choices;
 	}
 
 	public ArrayList<String> getChoicesAsList() {
-		return Null;
+		return new ArrayList<String>(Arrays.asList(choices.trim().toLowerCase()
+				.split("\\s*,\\s*")));
 	}
 
 	public String getAnswerText() {
-		return "resp"
+		return answer.toLowerCase();
 	}
 }
