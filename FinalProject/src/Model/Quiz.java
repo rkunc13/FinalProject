@@ -26,15 +26,30 @@ public class Quiz {
 		this.dateCreated = dt;
 		this.authorID = authorID;
 	}
-	
-	//another extended constructors 1
+
+
 	public Quiz(int quizID, String name, String description, int authorID, boolean randO, boolean multP, boolean immC, Timestamp dt, int points, boolean reported, String category, String tags) {
-		
+		this.quizID = quizID;
+		this.name = name;
+		this.description = description;
+		this.authorID = authorID;
+		this.randomOrder = randO;
+		this.multiplePages = multP;
+		this.immediateCorrection = immC;
+		this.dateCreated = dt;
+		this.points = points;
+		this.reported = reported;
+		this.category = category;
+		this.tags = tags;
 	}
-	
-	//another less extended constructors 2
+
+
 	public Quiz(int quizID, String name, Timestamp dt, int score, int quizTakerID) {
-		
+		this.quizID = quizID;
+		this.name = name;
+		this.dateCreated = dt;
+		this.score = score;
+		this.quizTakerID = quizTakerID;
 	}
 	
 }
