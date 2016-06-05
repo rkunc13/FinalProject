@@ -52,5 +52,49 @@ public class Quiz {
 		this.quizTakerID = quizTakerID;
 	}
 	
+
+	public int getQuizID() {
+	}
+	
+	public String getName() {
+	}
+	
+	public String getDescription() {
+	}
+	
+	public int getAuthorID() {
+	}
+	
+	public boolean isRandomOrder() {
+	}
+	
+	public boolean isMultiplePages() {
+	}
+	
+	public boolean isImmediateCorrection() {
+	}
+	
+	public Timestamp getDateAndTime() {
+	}
+	
+	public int getPoints() {
+	}
+	
+	public boolean isReported(){
+	}
+	
+	public String getCategory() {
+
+	}
+	
+	public String getTags() {
+	}
+	
+	public int getScore() {
+	}
+
+	public int getQuizTakerId() {
+	}
+	
 }
 	
