@@ -1,26 +1,18 @@
 package Model;
 
-public class FillInTheBlank {
+import java.util.ArrayList;
+import java.util.Arrays;
 
+
+public class FillInTheBlank extends Question {
+
+	private static final long serialVersionUID = 1L;
 
 	public FillInTheBlank(int quizID, int authorID, String prompt, String answer) {
-		
-	}
-
-	public int getQuizID() {
-	}
-
-	public int getNumBlanks() {
-	}
-	public String getQuestionText() {
-	}
-
-	public String getQuestionRegex() {
-	}
-
-	public String getAnswerAsText() {
-	}
-	public ArrayList<String> getAnswerAsList() {
+		this.quizID = quizID;
+		this.authorID = authorID;
+		this.question = prompt;
+		this.answer = answer;
 	}
 
 }
