@@ -19,15 +19,6 @@ public class Quiz {
 	private int score;
 	private int quizTakerID;
 
-	
-	public Quiz(int quizID, String name, Timestamp dt, int authorID) {
-		this.quizID = quizID;
-		this.name = name;
-		this.dateCreated = dt;
-		this.authorID = authorID;
-	}
-
-
 	public Quiz(int quizID, String name, String description, int authorID, boolean randO, boolean multP, boolean immC, Timestamp dt, int points, boolean reported, String category, String tags) {
 		this.quizID = quizID;
 		this.name = name;
@@ -42,8 +33,7 @@ public class Quiz {
 		this.category = category;
 		this.tags = tags;
 	}
-
-
+	
 	public Quiz(int quizID, String name, Timestamp dt, int score, int quizTakerID) {
 		this.quizID = quizID;
 		this.name = name;
@@ -52,7 +42,13 @@ public class Quiz {
 		this.quizTakerID = quizTakerID;
 	}
 	
-
+	public Quiz(int quizID, String name, Timestamp dt, int authorID) {
+		this.quizID = quizID;
+		this.name = name;
+		this.dateCreated = dt;
+		this.authorID = authorID;
+	}
+	
 	public int getQuizID() {
 		return quizID;
 	}
@@ -108,6 +104,4 @@ public class Quiz {
 	public int getQuizTakerId() {
 		return quizTakerID;
 	}
-	
 }
-	
