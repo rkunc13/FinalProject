@@ -54,46 +54,59 @@ public class Quiz {
 	
 
 	public int getQuizID() {
+		return quizID;
 	}
 	
 	public String getName() {
+		return name;
 	}
 	
 	public String getDescription() {
+		return description;
 	}
 	
 	public int getAuthorID() {
+		return authorID;
 	}
 	
 	public boolean isRandomOrder() {
+		return randomOrder;
 	}
 	
 	public boolean isMultiplePages() {
+		return multiplePages;
 	}
 	
 	public boolean isImmediateCorrection() {
+		return immediateCorrection;
 	}
 	
 	public Timestamp getDateAndTime() {
+		return dateCreated;
 	}
 	
 	public int getPoints() {
+		return points;
 	}
 	
 	public boolean isReported(){
+		return reported;
 	}
 	
 	public String getCategory() {
-
+		return category;
 	}
 	
 	public String getTags() {
+		return tags;
 	}
 	
 	public int getScore() {
+		return score;
 	}
 
 	public int getQuizTakerId() {
+		return quizTakerID;
 	}
 	
 }
