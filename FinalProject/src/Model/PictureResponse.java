@@ -8,8 +8,7 @@ public class PictureResponse {
 	public int getQuizID() {
 	}
 
-	public String getQuestionText() {
-	}
+	public String getQuestionText() {}
 
 	public String getAnswerText() {
 	}
