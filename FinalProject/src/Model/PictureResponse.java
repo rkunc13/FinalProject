@@ -10,4 +10,16 @@ public class PictureResponse extends Question {
 		this.question = url;
 		this.answer = answer;
 	}
+
+	public int getQuizID() {
+		return quizID;
+	}
+
+	public String getQuestionText() {
+		return question;
+	}
+
+	public String getAnswerText() {
+		return answer.toLowerCase();
+	}
 }
