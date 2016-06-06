@@ -6,18 +6,7 @@ public class Challenge {
 	int quizID;
 	int score;
 
-	public Challenge() {
+	public Challenge(int senderID, int receiverID, int quizID, int score) {
 	}
 
-	public int getSenderId() {
-	}
-
-	public int getReceiverId() {
-	}
-
-	public int getQuizId() {
-	}
-
-	public int getScore() {
-	}
 }
