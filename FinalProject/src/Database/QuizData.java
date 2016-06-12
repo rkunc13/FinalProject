@@ -20,33 +20,80 @@ import Model.QuizHistory;
 
 public class QuizData {
 
+	private Connection con; 
 
-	public QuizData() {
-	}
-	
-
-	public void addQuiz(String name) {
-		
-	}
-	
-	public void updateQuiz(String names) {
-		
+	public QuizData(Connection con) {
+		this.con = con; 
 	}
 	
 
-	public int getIDByName() {
-		return 0;
+	public void addQuiz(String name, String description, int author, String category, String tags, boolean random, boolean pages, boolean correction, int points) {
+		try {
+			
+		    Timestamp timeStamp = new Timestamp(Calendar.getInstance().getTime().getTime());
+		    tags = tags.replace(" ", "");
+			PreparedStatement insertStatement = con.prepareStatement("INSERT INTO quizzes (name, description, author_id, category, tags, random_order, multiple_pages, immediate_correction, date_time, points, reported) VALUES(?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)");
+			insertStatement.setString(1, name);
+			insertStatement.setString(2, description);
+			insertStatement.setInt(3, author);
+			insertStatement.setString(4, category);
+			insertStatement.setString(5, tags);
+			insertStatement.setBoolean(6, random);
+			insertStatement.setBoolean(7, pages);
+			insertStatement.setBoolean(8, correction);
+			insertStatement.setTimestamp(9, timeStamp);
+			insertStatement.setInt(10, points);
+			insertStatement.setBoolean(11, false);
+			insertStatement.executeUpdate();
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
 	}
 	
-	public String getQuizNameByID() {
-		return "Quiz";
+	public void updateQuiz(String name, String description, String category, String tags, boolean random, boolean pages, boolean correction, int quiz_id) {
+		try {
+			tags = tags.replace(" ", "");
+			PreparedStatement updateStatement = con.prepareStatement("UPDATE quizzes SET name = ?, description = ?, category = ?, tags = ?, random_order = ?, multiple_pages = ?, immediate_correction = ? WHERE quiz_id = ?");
+			updateStatement.setString(1, name);
+			updateStatement.setString(2, description);
+			updateStatement.setString(3, category);
+			updateStatement.setString(4, tags);
+			updateStatement.setBoolean(5, random);
+			updateStatement.setBoolean(6, pages);
+			updateStatement.setBoolean(7, correction);
+			updateStatement.setInt(8, quiz_id);
+			updateStatement.executeUpdate();
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
 	}
 	
 
-	public Quiz getQuizByID(int quiz_id) {
-		Quiz quiz = null;
-		return quiz;
+	public int getIDByName(String name) {
+		try {
+			PreparedStatement selectStatemet = con.prepareStatement("SELECT * FROM quizzes WHERE name = ?");
+			selectStatemet.setString(1, name);
+			ResultSet rs = selectStatemet.executeQuery();
+			rs.next();
+			return rs.getInt("quiz_id");
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		return -1;
 	}
+	
+	public String getQuizNameByID(int id) {
+		try {
+			ResultSet rs =  con.createStatement().executeQuery("SELECT * FROM quizzes WHERE quiz_id = \'" + id + "\'");
+			if (rs.next()) {
+				return rs.getString("name");
+			}
+		} catch (Exception e) {
+			e.printStackTrace();
+		}	
+		return "";
+	}
+	
 	
 
 	public List<Quiz> getQuizzes() {
@@ -110,14 +157,14 @@ public List<Quiz> searchQuizzes(String name, String category, String tag) {
 	}
 	
 	
-	public List<QuizHistory> getQuizHistory() {
+	public List<QuizHistory> getQuizHistory(int quiz_id) {
 		
-		List<QuizHistory> history = new List<QuizHistory>();
+		List<QuizHistory> history = new ArrayList<QuizHistory>();
 		
 		return history;
 	}
 	
-	public boolean checkQuizReported(){
+	public boolean checkQuizReported(int quiz_id){
 		
 		return true;
 	}
@@ -127,21 +174,21 @@ public List<Quiz> searchQuizzes(String name, String category, String tag) {
 	}
 	
 	
-	public boolean authorAchievement() {
+	public boolean authorAchievement(int quiz_id) {
 		return true;
 	}
 	
-	public boolean quizTakerAchievement() {
+	public boolean quizTakerAchievement(int quiz_id) {
 		return true;
 	}
 	
-	public boolean practiceMakesPerfect() {
+	public boolean practiceMakesPerfect(int quiz_id) {
 		int best = 0;
 		return true;
 	}
 	
 
-	public boolean iAmGreatestAchievement() {
+	public boolean iAmGreatestAchievement(int quiz_id) {
 		int high = 0;
 		
 		return true;
@@ -149,7 +196,7 @@ public List<Quiz> searchQuizzes(String name, String category, String tag) {
 	
 	
 	public List<String> getAchievements() {
-		List<String> s = new List<String>();
+		List<String> s = new ArrayList<String>();
 		return s;
 	}
 
@@ -159,13 +206,13 @@ public List<Quiz> searchQuizzes(String name, String category, String tag) {
 		return q;
 	}
 	
-	public boolean contains() {
+	public boolean contains(int quiz_id) {
 		
 		return true;
 	}
 	
 	
-	public boolean quizExists() {
+	public boolean quizExists(int quiz_id) {
 		
 		return true;
 	}
