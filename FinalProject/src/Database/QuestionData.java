@@ -1,33 +1,101 @@
 package Database;
 
+import java.io.ByteArrayInputStream;
+import java.io.ByteArrayOutputStream;
+import java.io.IOException;
+import java.io.ObjectInputStream;
+import java.io.ObjectOutputStream;
+import java.sql.Connection;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+import java.sql.SQLException;
+import java.sql.Statement;
 import java.util.ArrayList;
-import java.util.List;
 
 public class QuestionData {
+	private Connection con;
 
-	public QuestionData() {
+	public QuestionData(Connection con) {
+		this.con = con;
 	}
 	
-	public void addQuestion() {
-		
+	public void addQuestion(int quiz_id, String type, Object obj) {
+		try {
+			ByteArrayOutputStream bs = new ByteArrayOutputStream();
+			ObjectOutputStream os = new ObjectOutputStream(bs);
+			os.writeObject(obj);
+			os.close();
+			PreparedStatement prepStmt = con.prepareStatement("INSERT INTO questions (quiz_id, question_type, metadata) VALUES(?, ?, ?)");
+			prepStmt.setInt(1, quiz_id);
+			prepStmt.setString(2, type);
+			prepStmt.setObject(3, bs.toByteArray());
+			prepStmt.executeUpdate();
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
 	}
 	
-	public void updateQuestion() {
-		
+	public void updateQuestion(int question_id, Object obj) {
+		try {
+			ByteArrayOutputStream bs = new ByteArrayOutputStream();
+			ObjectOutputStream os = new ObjectOutputStream(bs);
+			os.writeObject(obj);
+			os.close();
+			
+			PreparedStatement updateStmt = con.prepareStatement("UPDATE questions SET metadata = ? WHERE question_id = ?");
+			updateStmt.setObject(1, bs.toByteArray());
+			updateStmt.setInt(2, question_id);
+			updateStmt.executeUpdate();
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
 	}
 	
-	public List<Integer> getQuestionIDs(int quiz_id) {
-		List<Integer> q = new ArrayList<Integer>();
-		
-		return q;
+	public ArrayList<Integer> getQuestionIDs(int quiz_id) {
+		ArrayList<Integer> questions = new ArrayList<Integer>();
+		try {
+			Statement stmt = con.createStatement();
+			ResultSet rs = stmt.executeQuery("SELECT * FROM questions WHERE quiz_id = \"" + quiz_id + "\"");
+			while (rs.next()) {
+				questions.add(rs.getInt("question_id"));
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+		return questions;
 	}
 	
 	
-	public Object getQuestionByID(int id) {
+	public Object getQuestionByID(int question_id) {
+		try {
+			Statement stmt = con.createStatement();
+			ResultSet rs = stmt.executeQuery("SELECT * FROM questions WHERE question_id = \"" + question_id + "\"");
+			if (rs.next()){
+				Object obj = rs.getObject("metadata");
+				ByteArrayInputStream bs = new ByteArrayInputStream((byte[]) obj);
+				ObjectInputStream is = new ObjectInputStream(bs);
+				return is.readObject();
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} catch (IOException e) {
+			e.printStackTrace();
+		} catch (ClassNotFoundException e) {
+			e.printStackTrace();
+		}
 		return null;
 	}
 	
-	public String getTypeByID() {
-		return "nu awitlebs vax";
+	public String getTypeByID(int question_id) {
+		try {
+			Statement stmt = con.createStatement();
+			ResultSet rs = stmt.executeQuery("SELECT * FROM questions WHERE question_id = \"" + question_id + "\"");
+			if (rs.next()){
+				return rs.getString("question_type");
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+		return null;
 	}
 }
