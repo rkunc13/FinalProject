@@ -181,7 +181,21 @@ public class UserData {
 		}
 		return null;
 	}
-		
+	
+	public ArrayList<QuizHistory> getQuizHistoryById(int user_id){
+		ArrayList<QuizHistory> history = new ArrayList<QuizHistory>();
+		try {
+			ResultSet rs = con.createStatement().executeQuery("SELECT * FROM quiz_history WHERE user_id = " + user_id);
+			while(rs.next())
+				history.add(new QuizHistory(rs.getInt("quiz_history_id"), rs.getInt("quiz_id"), rs.getInt("user_id"), rs.getInt("score"), rs.getInt("total"), rs.getInt("rating"), rs.getString("review"), rs.getString("name"), rs.getTimestamp("date_time")));
+			
+			return history;
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+		return history;
+	}
+	
 
 	public ArrayList<Quiz> getAuthoredQuizzes(int user_id) {
 		ArrayList<Quiz> quizList = new ArrayList<Quiz>();

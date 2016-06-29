@@ -297,6 +297,40 @@ public ArrayList<Quiz> searchQuizzes(String name, String category, String tag) {
 	}
 	
 	
+	public ArrayList<QuizHistory> getQuizHistory(int quiz_id, int user_id, String type) {
+		ArrayList<QuizHistory> history = new ArrayList<QuizHistory>();
+		try {
+			Calendar calendar = Calendar.getInstance();
+			calendar.add(Calendar.HOUR, -24);
+			Timestamp yesterTimeStamp = new Timestamp(calendar.getTime().getTime());
+			
+			Statement selectStatement = con.createStatement();
+			
+			@SuppressWarnings("resource")
+			ResultSet rs =  type.equals("past performance") ? selectStatement.executeQuery("SELECT * FROM quiz_history WHERE quiz_id = \'" + quiz_id + "\' AND user_id = \'" + user_id + "\' ORDER BY date_time DESC, time_taken ASC"):
+				            type.equals("all time high") || type.equals("last day high") ?  selectStatement.executeQuery("SELECT * FROM quiz_history WHERE quiz_id = \'" + quiz_id + "\' ORDER BY score DESC, time_taken ASC") :
+				            type.equals("recent") ? selectStatement.executeQuery("SELECT * FROM quiz_history WHERE quiz_id = \'" + quiz_id + "\' ORDER BY date_time DESC, time_taken ASC") :
+				            type.equals("reviews") ? selectStatement.executeQuery("SELECT * FROM quiz_history WHERE quiz_id = \'" + quiz_id + "\' ORDER BY date_time DESC") : null;
+			
+			
+				            
+			while (rs.next()){
+				QuizHistory quizHistory = new QuizHistory(rs.getInt("quiz_history_id"), rs.getInt("quiz_id"), rs.getInt("user_id"), rs.getInt("score"), rs.getInt("total"), rs.getInt("rating"), rs.getString("review"), rs.getString("name"), rs.getTimestamp("date_time"));
+				
+				if (type.equals("last day high")) {
+					if (new Timestamp(((Date) rs.getDate("date_time")).getTime()).after(yesterTimeStamp)) 
+						history.add(quizHistory);
+					
+				} else {
+					history.add(quizHistory);
+				}
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+		return history;
+	}
+	
 	public boolean checkQuizReported(int quiz_id){
 		try{
 			ResultSet rs = con.createStatement().executeQuery("SELECT * FROM quizzes WHERE quiz_id = " + quiz_id);
