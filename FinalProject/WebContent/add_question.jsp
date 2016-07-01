@@ -1,0 +1,29 @@
+<%@ page language="java" contentType="text/html; charset=ISO-8859-1"
+    pageEncoding="ISO-8859-1"%>
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+	<head>
+		<link rel="stylesheet" href="style.css">
+		<link href="//fonts.googleapis.com/css?family=Raleway:400,300,600" rel="stylesheet" type="text/css">
+		<meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
+		<title>Add Question</title>
+	</head>
+	<body>
+		<div style="text-align:center">
+			<div style="display:inline-block">
+				<h1 class="auth-center">Select Question Type</h1><br><br>
+				<form action="SelectQuestionTypeServlet" method="post">
+					<p class="auth-center">Question Type: 
+					<select name="ques_type">
+						<option value="text_response">Question-Response Question</option>
+						<option value="fill_blank">Fill in the Blank Question</option>
+						<option value="multiple_choice_multiple_answers">Multiple Choice with Multiple Answers</option>
+					</select>
+					<input type="hidden" name="quiz_id" value="<%=request.getParameter("quiz_id")%>"/>
+					<input type="hidden" name="points" value="<%=request.getParameter("points")%>"/>
+					<input type="submit" value="Next" /></p>
+				</form>
+			</div>
+		</div>
+	</body>
+</html>
