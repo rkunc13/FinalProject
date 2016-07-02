@@ -29,10 +29,23 @@
 					<p>Description: <br><textarea rows="4" cols="50" name="description" ></textarea></p><br>
 					<p>Category: 
 						<select name="category">
+							<option value="animals">Animals</option>
+							<option value="entertainment">Entertainment</option>
+							<option value="fun">Fun</option>
+							<option value="gaming">Gaming</option>
+							<option value="geography">Geography</option>
+							<option value="history">History</option>
+							<option value="hobbies">Hobbies</option>
+							<option value="literature">Literature</option>
+							<option value="language">Language</option>
+							<option value="miscellaneous">Miscellaneous</option>
 							<option value="movies">Movies</option>
 							<option value="music">Music</option>
+							<option value="religion">Religion</option>
 							<option value="science">Science</option>
 							<option value="sports">Sports</option>
+							<option value="television">Television</option>
+							<option value="world">World</option>
 						</select>
 					</p><br>
 					<p>Tags (separate with comma): <br><textarea rows="4" cols="50" name="tags" ></textarea></p><br>
